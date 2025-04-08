@@ -1,0 +1,6 @@
+Flask==2.3.3
+openai-whisper==20231117
+torch==2.0.1
+spacy==3.7.2
+ffmpeg-python==0.2.0
+werkzeug==2.3.7

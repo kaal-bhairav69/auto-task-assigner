@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Task Extractor</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(to right, #e0f7fa, #e8f5e9);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px 20px;
+            color: #222;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+            color: #00796b;
+        }
+
+        form {
+            background-color: #ffffff;
+            padding: 20px 25px;
+            border-radius: 12px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        input[type="file"] {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+        }
+
+        button {
+            padding: 10px 20px;
+            border: none;
+            background-color: #00796b;
+            color: white;
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #004d40;
+        }
+
+        h2 {
+            font-size: 1.8rem;
+            color: #00695c;
+        }
+
+        .task-container {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            margin-top: 20px;
+            max-width: 700px;
+            width: 100%;
+        }
+
+        .task-card {
+            background: #ffffffd9;
+            padding: 20px;
+            border-radius: 16px;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+            font-size: 1.05rem;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .task-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+        }
+
+        .task-card p {
+            margin: 8px 0;
+        }
+
+        .no-tasks {
+            margin-top: 20px;
+            font-size: 1.1rem;
+            color: #757575;
+        }
+
+        @media (max-width: 600px) {
+            form {
+                width: 100%;
+            }
+
+            .task-card {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Upload Audio File</h1>
+
+    <form action="/" method="POST" enctype="multipart/form-data">
+        <input type="file" name="audio" required>
+        <button type="submit">Extract</button>
+    </form>
+
+    <h2>Extracted Tasks:</h2>
+
+    {% if tasks %}
+        <div class="task-container">
+        {% for task in tasks %}
+            <div class="task-card">
+                <p><strong>Assignee:</strong> {{ task.assignee }}</p>
+                <p><strong>Task:</strong> {{ task.task }}</p>
+            </div>
+        {% endfor %}
+        </div>
+    {% else %}
+        <p class="no-tasks">No tasks extracted.</p>
+    {% endif %}
+</body>
+</html>
